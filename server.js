@@ -51,7 +51,13 @@ app.post("/q_lua", (req, res) => {
 
   // procura o primeiro job destinado a esse ServerID
   const index = queue.findIndex(job => job.ServerID === serverID);
-  if (index === -1) return res.status(204).send(""); // nada pra executar
+  if (index === -1) {
+  return res.json({
+    interactionid: null,
+    source: null
+  });
+}
+
 
   const job = queue.splice(index, 1)[0];
   res.json(job);
